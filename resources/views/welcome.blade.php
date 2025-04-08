@@ -1,6 +1,7 @@
 @extends('layouts.template')
  
  @section('content')
+ 
  <div class="card">
      <div class="card-header">
          <h3 class="card-title">Halo, apakabar!!!</h3>
