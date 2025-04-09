@@ -2,15 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class BarangSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $data = [
@@ -25,6 +21,6 @@ class BarangSeeder extends Seeder
             ['kategori_id' => 5, 'barang_kode' => 'MU009', 'barang_nama' => 'Lipstik Matte', 'harga_beli' => 70000, 'harga_jual' => 100000],
             ['kategori_id' => 5, 'barang_kode' => 'MU010', 'barang_nama' => 'Foundation', 'harga_beli' => 120000, 'harga_jual' => 160000],
         ];
-        DB::table('m_barang')->insert($data);        
+        DB::table('m_barang')->insert($data);
     }
 }
