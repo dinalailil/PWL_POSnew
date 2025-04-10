@@ -369,6 +369,12 @@ class UserController extends Controller
                 'status' => true,
                 'message' => 'Data user berhasil disimpan'
             ]);
+            // UserModel::create([
+            //     'username' => $request->username,
+            //     'nama'     => $request->nama,
+            //     'password' => bcrypt($request->password),
+            //     'level_id' => $request->level_id
+            // ]);            
         }
         redirect('/');
     }
@@ -404,9 +410,15 @@ class UserController extends Controller
 
             $check = UserModel::find($id);
             if ($check) {
-                if (!$request->filled('password')) { // jika password tidak diisi, maka hapus dari request
+                // if (!$request->filled('password')) { // jika password tidak diisi, maka hapus dari request
+                //     $request->request->remove('password');
+                // }
+                if ($request->filled('password')) {
+                    $request->merge(['password' => bcrypt($request->password)]);
+                } else {
                     $request->request->remove('password');
                 }
+                
                 $check->update($request->all());
                 return response()->json([
                     'status' => true,
