@@ -29,7 +29,7 @@ class SupplierController extends Controller
     // Mengambil data supplier dalam bentuk JSON untuk DataTables
     public function list(Request $request)
     {
-        $suppliers = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat', 'supplier_telp');
+        $suppliers = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat');
 
         return DataTables::of($suppliers)
             ->addIndexColumn()
@@ -71,8 +71,7 @@ class SupplierController extends Controller
         $request->validate([
             'supplier_kode' => 'required|unique:m_supplier,supplier_kode',
             'supplier_nama' => 'required',
-            'supplier_alamat' => 'required',
-            'supplier_telp' => 'required|numeric',
+            'supplier_alamat' => 'required'
         ]);
 
         SupplierModel::create($request->all());
@@ -124,8 +123,7 @@ class SupplierController extends Controller
         $request->validate([
             'supplier_kode' => 'required|unique:m_supplier,supplier_kode,' . $id . ',supplier_id',
             'supplier_nama' => 'required',
-            'supplier_alamat' => 'required',
-            'supplier_telp' => 'required|numeric',
+            'supplier_alamat' => 'required'
         ]);
 
         $supplier = SupplierModel::findOrFail($id);

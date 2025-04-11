@@ -78,9 +78,9 @@
               }, {
                   data: "level_kode",
                   className: "",
-                  orderable: true, jika ingin kolom ini bisa diurutkan
+                  orderable: true, //jika ingin kolom ini bisa diurutkan
                   orderable: true,
-                  searchable: true, jika ingin kolom ini bisa dicari
+                  searchable: true, //jika ingin kolom ini bisa dicari
                   searchable: true
               }, {
                   data: "level_nama",
@@ -89,7 +89,7 @@
                   searchable: true
               }, {
                   data: "aksi",
-                  className: "",
+                  className: "text-center",
                   orderable: false,
                   searchable: false
               }]

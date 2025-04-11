@@ -17,11 +17,7 @@
                     <input type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
                     <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                 </div>
-                <div class="form-group">
-                    <label>Telepon</label>
-                    <input type="text" name="supplier_telp" id="supplier_telp" class="form-control" required>
-                    <small id="error-supplier_telp" class="error-text form-text text-danger"></small>
-                </div>
+
                 <div class="form-group">
                     <label>Alamat</label>
                     <textarea name="supplier_alamat" id="supplier_alamat" class="form-control" required></textarea>
@@ -41,7 +37,6 @@
         $("#form-tambah-supplier").validate({
             rules: {
                 supplier_nama: {required: true, minlength: 3, maxlength: 100},
-                supplier_telepon: {required: true, minlength: 8, maxlength: 15},
                 supplier_alamat: {required: true, minlength: 5}
             },
             submitHandler: function(form) {

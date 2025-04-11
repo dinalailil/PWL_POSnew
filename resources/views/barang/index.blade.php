@@ -1,10 +1,12 @@
 @extends('layouts.template')
- 
- @section('content')
-     <div class="card card-outline card-primary">
-         <div class="card-header d-flex justify-content-between align-items-center">
+
+@section('content')
+    <div class="card card-outline card-primary">
+        <div class="card-header">
             <h3 class="card-title">Daftar Barang</h3>
-             <a class="btn btn-sm btn-primary" href="{{ url('barang/create') }}">Tambah</a>
+            <div class="card-tools">
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('barang/create') }}">Tambah</a>
+             <button onclick="modalAction('{{url('barang/create_ajax')}}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
          </div>
          <div class="card-body">
              @if (session('success'))
@@ -43,43 +45,44 @@
                 </div>
             </div>
             
-             <div class="table-responsive">
-                 <table class="table table-bordered table-striped table-hover table-sm" id="table_barang" width="100%">
-                     <thead class="text-center">
-                         <tr>
-                             <th style="width: 40px;">ID</th>
-                             <th style="width: 140px;">Kategori Barang</th>
-                             <th style="width: 100px;">Kode Barang</th>
-                             <th style="width: 150px;">Nama Barang</th>
-                             <th style="width: 120px;">Harga Beli</th>
-                             <th style="width: 120px;">Harga Jual</th>
-                             <th style="width: 220px;">Aksi</th>
-                         </tr>
-                     </thead>
-                 </table>
-             </div>
-         </div>
-     </div>
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_barang">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Harga Beli</th>
+                        <th>Harga Jual</th>
+                        <th>Kategori</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+    </div>
  @endsection
  
  @push('js')
      <script>
-         $(document).ready(function() {
-                // CSRF token untuk AJAX POST
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        function modalAction(url = '') {
+        $('#myModal').load(url, function() {
+            $('#myModal').modal('show');
+        });
+    }
+
+    var dataBarang;
+    $(document).ready(function() {
+        dataBarang = $('#table_barang').DataTable({
+            serverSide: true,
+            ajax: {
+                "url": "{{ url('barang/list') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data": function(d) {
+                    d.kategori_id = $('#kategori_id').val();
                 }
-            });
-             var dataBarang = $('#table_barang').DataTable({
-                 serverSide: true,
-                 ajax: {
-                     url: "{{ url('barang/list') }}",
-                     type: "POST",
-                     data: function(d) {
-                         d.kategori_id = $('#kategori_id').val();
-                     }
-                 },
+            },
                  columns: [{
                          data: "DT_RowIndex",
                          className: "text-center align-middle",

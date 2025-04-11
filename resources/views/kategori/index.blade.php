@@ -41,6 +41,8 @@
           </table>
       </div>
   </div>
+  <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static"
+        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
   @endsection
   
   @push('css')
@@ -48,48 +50,40 @@
   
   @push('js')
   <script>
-    function modalAction(url = '') {
-        $('#myModal').load(url, function(){
-            $('#myModal').modal('show');
-        });
-    }
+      function modalAction(url = '') {
+          $('#myModal').load(url, function () {
+              $('#myModal').modal('show');
+          });
+      }
 
-    var dataKategori;
-    
-      $(document).ready(function() {
-          var dataKategori = $('#table_kategori').DataTable({
-              // serverSide: true, jika ingin menggunakan server side processing
+      var dataKategori;
+      $(document).ready(function () {
+          dataKategori = $('#table_kategori').DataTable({
+            //   processing: true,
               serverSide: true,
               ajax: {
-                  "url": "{{ url('kategori/list') }}",
-                  "dataType": "json", 
-                  "type": "POST",
+                  url: "{{ url('kategori/list') }}",
+                  type: "POST",
+                  dataType: "json",
+                //   headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}" },
+                //   data: function (d) {
+                //       d.kategori_id = $('#kategori_id_filter').val(); // Contoh filter ID kategori jika diperlukan
+                 // }
               },
-              columns: [{
-                  // nomor urut dari laravel datatable addIndexColumn()
-                  data: "DT_RowIndex",
-                  className: "text-center",
-                  orderable: false,
-                  searchable: false
-              }, {
-                  data: "kategori_id",
-                  className: "",
-                  // orderable: true, jika ingin kolom ini bisa diurutkan
-                  orderable: true,
-                  // searchable: true, jika ingin kolom ini bisa dicari
-                  searchable: true
-              }, {
-                  data: "kategori_nama",
-                  className: "",
-                  orderable: true,
-                  searchable: true
-              }, {
-                  data: "aksi",
-                  className: "",
-                  orderable: false,
-                  searchable: false
-              }]
+              columns: [
+                  { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                  { data: "kategori_kode", orderable: true, searchable: true },
+                  { data: "kategori_nama", orderable: true, searchable: true },
+                  { data: "aksi", orderable: false, searchable: false, className: "text-center" }
+              ]
           });
+
+          // Contoh implementasi filter jika Anda menambahkannya
+        //   if ($('#kategori_id_filter').length) {
+        //       $('#kategori_id_filter').on('change', function () {
+        //           dataKategori.ajax.reload();
+        //       });
+        //   }
       });
   </script>
-  @endpush
+@endpush

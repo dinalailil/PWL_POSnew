@@ -1,6 +1,6 @@
 <form action="{{ url('/kategori/ajax') }}" method="POST" id="form-tambah-kategori">
     @csrf
-    <div id="modal-kategori" class="modal-dialog modal-lg" role="document">
+    <div id="myModal" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Data Kategori</h5>

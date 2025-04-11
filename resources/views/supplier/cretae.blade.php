@@ -1,49 +1,23 @@
 @extends('layouts.template')
- 
- @section('content')
- <div class="card card-outline card-primary">
-     <div class="card-header">
-         <h3 class="card-title">{{ $page->title }}</h3>
-         <div class="card-tools"></div>
-     </div>
-     <div class="card-body">
-         <form method="POST" action="{{ url('supplier') }}" class="form-horizontal">
-             @csrf
- 
-             <div class="form-group row">
-                 <label class="col-1 control-label col-form-label">Kode Supplier</label>
-                 <div class="col-11">
-                     <input type="text" class="form-control" id="supplier_kode" name="supplier_kode" value="{{ old('supplier_kode') }}" required>
-                     @error('supplier_kode')
-                         <small class="form-text text-danger">{{ $message }}</small>
-                     @enderror
-                 </div>
-             </div>
- 
-             <div class="form-group row">
-                 <label class="col-1 control-label col-form-label">Nama Supplier</label>
-                 <div class="col-11">
-                     <input type="text" class="form-control" id="supplier_nama" name="supplier_nama" value="{{ old('supplier_nama') }}" required>
-                     @error('supplier_nama')
-                         <small class="form-text text-danger">{{ $message }}</small>
-                     @enderror
-                 </div>
-             </div>
- 
-             <div class="form-group row">
-                 <label class="col-1 control-label col-form-label"></label>
-                 <div class="col-11">
-                     <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                     <a class="btn btn-sm btn-default ml-1" href="{{ url('supplier') }}">Kembali</a>
-                 </div>
-             </div>
-         </form>
-     </div>
- </div>
- @endsection
- 
- @push('css')
- @endpush
- 
- @push('js')
- @endpush
+
+@section('content')
+    <div class="container">
+        <h2>Tambah Supplier</h2>
+        <form action="{{ url('supplier') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label>Kode Supplier</label>
+                <input type="text" name="supplier_kode" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Nama Supplier</label>
+                <input type="text" name="supplier_nama" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Alamat</label>
+                <textarea name="supplier_alamat" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    </div>
+@endsection
