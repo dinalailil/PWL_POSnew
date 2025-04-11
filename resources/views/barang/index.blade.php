@@ -3,7 +3,7 @@
  @section('content')
      <div class="card card-outline card-primary">
          <div class="card-header d-flex justify-content-between align-items-center">
-             <h3 class="card-title">{{ $page->title }}</h3>
+            <h3 class="card-title">Daftar Barang</h3>
              <a class="btn btn-sm btn-primary" href="{{ url('barang/create') }}">Tambah</a>
          </div>
          <div class="card-body">

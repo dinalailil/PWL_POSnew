@@ -6,6 +6,7 @@
          <h3 class="card-title">{{ $page->title }}</h3>
          <div class="card-tools">
              <a class="btn btn-sm btn-primary mt-1" href="{{ url('supplier/create') }}">Tambah</a>
+             <button onclick="modalAction('{{ url('supplier/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
          </div>
      </div>
      <div class="card-body">
@@ -15,6 +16,22 @@
          @if (session('error'))
              <div class="alert alert-danger">{{ session('error') }}</div>
          @endif
+         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    
+               
+                    <!-- Dropdown filter berdasarkan kode supplier -->
+                    <div class="col-3">
+                        <select class="form-control" id="supplier_kode">
+                            <option value="">- Semua Kode -</option>
+                        </select>
+                        <small class="form-text text-muted">Kode Supplier</small>
+                    </div>
+                </div>
+            </div>
+        </div>
          <table class="table table-bordered table-striped table-hover table-sm" id="table_supplier">
              <thead>
                  <tr>
@@ -34,6 +51,12 @@
   
  @push('js')
  <script>
+    function modalAction(url = ''){
+        $('#myModal').load(url, function(){
+            $('#myModal').modal('show');
+        });
+    }
+    var dataSupplier;
      $(document).ready(function() {
          $('#table_supplier').DataTable({
              serverSide: true,
