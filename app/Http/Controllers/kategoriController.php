@@ -174,19 +174,31 @@ public function index(){
 
     public function store_ajax(Request $request)
     {
-        if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
-                'kategori_nama' => 'required|string|unique:m_kategori,kategori_nama|min:3|max:100'
-            ]);
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'kategori_kode' => 'required|string|max:10|unique:m_kategori,kategori_kode', // Tambahkan unique rule
+                'kategori_nama' => 'required|string|max:100',
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
-                return response()->json(['status' => false, 'message' => 'Validasi Gagal', 'msgField' => $validator->errors()]);
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(),
+                ]);
             }
 
-            KategoriModel::create($request->all());
-            return response()->json(['status' => true, 'message' => 'Data kategori berhasil disimpan']);
+            $kategoriData = $request->all();
+
+            KategoriModel::create($kategoriData);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data kategori berhasil disimpan'
+            ]);
         }
-        return redirect('/');
     }
 
     public function edit_ajax(string $id)
