@@ -91,6 +91,7 @@
   
           $(document).ready(function() {
               $("#form-login").validate({
+                //console.log("test");
                   rules: {
                       username: {
                           required: true,
