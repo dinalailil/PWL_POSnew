@@ -111,6 +111,7 @@
         });
         
         Route::group(['prefix' => 'barang'], function () {
+        // Route::middleware(['authorize:ADM,MNG'])->group(function () {
             Route::get('/', [BarangController::class, 'index']);
             Route::post('/list', [BarangController::class, 'list']);
             Route::get('/create', [BarangController::class, 'create']);
