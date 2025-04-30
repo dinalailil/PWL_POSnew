@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::delete('/user/{id}', [UserController::class, 'destroy']);     // Menghapus data user'
             Route::get('/user/import', [UserController::class, 'import']); // ajax form upload excel
             Route::post('/user/import_ajax', [UserController::class, 'import_ajax']); // ajax import excel
+            Route::get('/user/export_excel',[UserController::class, 'export_excel']); //export excel
     });
 
     Route::middleware(['authorize:ADM'])->group(function () { //hanya level admin yang dapat mengakses menu level
@@ -116,6 +117,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::delete('/supplier/{id}', [SupplierController::class, 'destroy']);     // Menghapus data supplier
             Route::get('/supplier/import', [SupplierController::class, 'import']); //ajax form upload excel
             Route::post('/supplier/import_ajax', [SupplierController::class, 'import_ajax']); //ajax import excel
+            Route::get('/supplier/export_excel',[SupplierController::class, 'export_excel']); //export excel
     });
 
     Route::middleware(['authorize:ADM,MNG,STF'])->group(function () { //hanya level admin,manager,staff yang dapat mengakses menu barang
@@ -136,5 +138,6 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::delete('/barang/{id}', [BarangController::class, 'destroy']);     // Menghapus data barang
             Route::get('/barang/import', [BarangController::class, 'import']); // ajax form upload excel
             Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); // ajax import excel
+            Route::get('/barang/export_excel',[BarangController::class, 'export_excel']); //export excel
     });
 });
