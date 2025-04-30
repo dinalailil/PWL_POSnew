@@ -9,13 +9,7 @@ class SupplierModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_supplier';
-    protected $primaryKey = 'supplier_id';
-    public $timestamps = false;
-
-    protected $fillable = [
-        'supplier_kode',
-        'supplier_nama',
-        'supplier_alamat',
-    ];
+    protected $table = 'm_supplier'; // nama tabel di database
+    protected $primaryKey = 'supplier_id'; // ganti dengan primary key yang sesuai
+    protected $fillable = ['supplier_kode','supplier_nama', 'supplier_alamat'];
 }
