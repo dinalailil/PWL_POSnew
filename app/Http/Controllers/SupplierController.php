@@ -339,7 +339,6 @@ class SupplierController extends Controller
         $sheet->setCellValue('B1', 'Kode Supplier');
         $sheet->setCellValue('C1', 'Nama Supplier');
         $sheet->setCellValue('D1', 'Alamat Supplier');
-        $sheet->setCellValue('E1', 'Telepon Supplier');
 
 
         $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
@@ -378,4 +377,17 @@ class SupplierController extends Controller
         $writer->save('php://output');
         exit;
     } // end function export_excel
+    public function export_pdf()
+    {
+        $supplier = SupplierModel::select('supplier_kode','supplier_nama', 'supplier_alamat')
+            ->get();
+
+        // use Barryvdh\DomPDF\Facade\Pdf;
+        $pdf = Pdf::loadView('supplier.export_pdf', ['supplier' => $supplier]);
+        $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+        $pdf->setOption('isRemoteEnabled', true); // set true jika ada gambar dari url
+        $pdf->render();
+
+        return $pdf->stream('Data Supplier ' . date('Y-m-d H:i:s') . '.pdf');
+    }
 }
